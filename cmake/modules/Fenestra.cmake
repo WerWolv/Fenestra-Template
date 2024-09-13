@@ -2,7 +2,7 @@ macro(add_fenestra_app)
     # Parse arguments
     set(options STRICT_WARNINGS)
     set(oneValueArgs NAME AUTHOR PLUGIN_DIRECTORY OUTPUT_DIRECTORY FENESTRA_PATH FENESTRA_VERSION)
-    set(multiValueArgs)
+    set(multiValueArgs IMGUI_LIBRARIES)
     cmake_parse_arguments(FENESTRA_APP "${options}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN})
 
     if (NOT FENESTRA_APP_NAME)
@@ -30,6 +30,14 @@ macro(add_fenestra_app)
         set(FENESTRA_MAIN_OUTPUT_DIRECTORY ${FENESTRA_MAIN_OUTPUT_DIRECTORY} CACHE STRING "" FORCE)
     else()
         set(FENESTRA_MAIN_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}" CACHE STRING "" FORCE)
+    endif()
+
+    if (FENESTRA_APP_IMGUI_LIBRARIES)
+        set(FENESTRA_BUNDLED_IMGUI_LIBRARIES "")
+        foreach (IMGUI_LIBRARY ${FENESTRA_APP_IMGUI_LIBRARIES})
+            set(FENESTRA_BUNDLED_IMGUI_LIBRARIES ${FENESTRA_BUNDLED_IMGUI_LIBRARIES} "imgui::${IMGUI_LIBRARY}")
+        endforeach()
+        set(FENESTRA_BUNDLED_IMGUI_LIBRARIES ${FENESTRA_BUNDLED_IMGUI_LIBRARIES} CACHE STRING "" FORCE)
     endif()
 
     if (FENESTRA_APP_FENESTRA_PATH)
