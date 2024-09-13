@@ -48,6 +48,8 @@ macro(add_fenestra_app)
             set(FENESTRA_APP_FENESTRA_VERSION "main")
         endif()
 
+        message(STATUS "Fetching Fenestra from git tag '${FENESTRA_APP_FENESTRA_VERSION}'. This may take a while...")
+
         include(FetchContent)
         FetchContent_Declare(
                 fenestra
