@@ -21,5 +21,5 @@ add_fenestra_app(
 
         # Replace this with the version you want to use
         FENESTRA_VERSION
-            "v1.0.0"
+            "v1.0.2"
 )
